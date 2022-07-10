@@ -1,38 +1,214 @@
-.App {
-  text-align: center;
+body {
+  scroll-behavior: smooth;
+  background-color: rgb(240, 240, 240);
+  height: -webkit-fill-available;
+  height: -moz-fill-available;
+  height: fill-available;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+::selection {
+  background-color: rgb(106, 106, 106);
+  color: rgb(255, 255, 255);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.wholepageCenterChild {
+  height: 100%;
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
+.text-bold {
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-brand {
+  color: #3498db;
+}
+
+.dashboard {
+  z-index: 1;
+}
+
+.click-effect {
+  transform: scale(1);
+  transition: .1s ease-in-out;
+}
+
+.click-effect:active {
+  transform: scale(.97);
+}
+
+
+/* dashboard css */
+.dashboard-left {
+  height: auto;
+  width: 100%;
+  transition: .36s ease-in-out;
+  position: relative;
+
+
+}
+
+.border-radious-10 {
+  border-radius: 10px;
+}
+
+/* @media only screen and (max-width: 620px) {
+  .dashboard-left {
+    width: 100%;
+    margin: 0 auto;
   }
-  to {
-    transform: rotate(360deg);
-  }
+} */
+
+.dashboard-left::-webkit-scrollbar,
+.dashboard-right::-webkit-scrollbar {
+  visibility: hidden;
+
+}
+
+.dashboard-right {
+  height: auto;
+}
+
+.hoverright:hover .dashboard-left {
+  /* transform: translateX(0); */
+  opacity: 1;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.avater {
+  height: 7rem;
+  width: 7rem;
+  border-radius: 50%;
+  border: 5px solid #3498db;
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+.avater img {
+  height: 100%;
+  width: 100%;
+}
+
+.menu-item {
+  padding: 13px 0 13px 5px;
+  transition: .35s ease-in-out;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.332);
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+}
+
+.menu-item i {
+  margin-right: 5px;
+  font-size: large;
+}
+
+.menu-item:last-child {
+  border-bottom: 0px solid rgba(0, 0, 0, 0.332);
+}
+
+.menu-item:hover {
+  background-color: #0099ff95;
+  color: rgb(0, 0, 0);
+}
+
+.overflow-scroll::-webkit-scrollbar {
+  visibility: hidden;
+}
+
+/* @media screen and (max-width : 620px){
+  .overflow-scroll{
+  overflow-x: scroll;
+}
+} */
+
+
+/* .overflow-scroll::-webkit-scrollbar-track{
+  width: 10px;
+  height: 111px;
+  opacity: 1;
+} */
+
+
+/* .user-table{
+  height: 200px !important;
+  overflow: hidden !important;
+} */
+
+
+.or-section {
+  margin: 7px auto;
+}
+
+.or-section span {
+  position: relative;
+}
+
+.or-section span::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 30px;
+  width: 100px;
+  border-top: 2px solid gray;
+}
+
+.or-section span::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 30px;
+  width: 100px;
+  border-top: 2px solid gray;
+}
+
+.google-sign-in {
+  font-weight: 700;
+  border-radius: 20px;
+  background-color: rgb(175, 175, 175);
+  padding: 8px 28px;
+  border: none;
+
+}
+
+.settings-list {
+  list-style: none;
+  padding: 10px 0;
+}
+
+.settings-list li {
+  padding: 10px 0;
+  position: relative;
+  transition: all .35s ease-in-out;
+  cursor: pointer;
+}
+
+.settings-list li::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.425);
+  bottom: 0;
+  left: 0;
+  transform-origin: left;
+  transition: all .35s ease-in-out;
+}
+
+.settings-list li:hover::after {
+  width: 100%;
 }
