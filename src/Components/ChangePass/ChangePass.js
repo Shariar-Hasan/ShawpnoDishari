@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { changePassword } from "../../Assets/Funtions/Firebase";
+import { changePassword } from "../../Assets/Funtions/FirebaseAuth";
 import { hrStyle } from "../../Assets/Values/PreDefinedValues";
 const ChangePass = () => {
   const { register, handleSubmit } = useForm();

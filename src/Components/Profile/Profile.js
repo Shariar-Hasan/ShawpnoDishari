@@ -9,11 +9,9 @@ const Profile = () => {
   const [profile, setProfile] = useState({});
   useEffect(() => {
     const profileOfUser = fakeUserlist.find((user) => user.sd_id === id);
-    console.log(profileOfUser);
     setProfile(profileOfUser);
   }, []);
   const handleSearch = (option, string) => {
-    console.log(option, string);
     if (!string) setProfile(undefined);
     else {
       if (option !== "sd_id") {
@@ -62,23 +60,31 @@ const Profile = () => {
                       </tr>
                       <tr>
                         <td>Email : </td>
-                        <td>{profile?.userPrivacy?.email
-                            ? <span className="text-danger">Email Hidden by User</span>
-                            : profile?.personalInfo?.phone}</td>
+                        <td>{profile?.personalInfo?.email}</td>
                       </tr>
                       <tr>
                         <td>Phone : </td>
                         <td>
-                          {profile?.userPrivacy?.phone
-                            ? <span className="text-danger">Phone Number Hidden by User</span>
-                            : profile?.personalInfo?.email}
+                          {profile?.userPrivacy?.phone ? (
+                            <span className="text-danger">
+                              Phone Number Hidden by User
+                            </span>
+                          ) : (
+                            profile?.personalInfo?.phone
+                          )}
                         </td>
                       </tr>
                       <tr>
                         <td>Birth Date : </td>
-                        <td>{profile?.userPrivacy?.birthDate
-                            ? <span className="text-danger">Birth Date Hidden by User</span>
-                            : profile?.personalInfo?.birthDate}</td>
+                        <td>
+                          {profile?.userPrivacy?.birthDate ? (
+                            <span className="text-danger">
+                              Birth Date Hidden by User
+                            </span>
+                          ) : (
+                            profile?.personalInfo?.birthDate
+                          )}
+                        </td>
                       </tr>
 
                       <tr>
@@ -89,11 +95,16 @@ const Profile = () => {
                       <tr>
                         <td> Total Donated : </td>
                         <td>
-                          {profile?.donationInfo?.reduce(
-                            (total, don) => total + +don.amount,
-                            0
-                          )}{" "}
-                          TK
+                          {profile?.userPrivacy?.birthDate ? (
+                            <span className="text-danger">
+                              Donation Info Hidden by User
+                            </span>
+                          ) : (
+                            profile?.donationInfo?.reduce(
+                              (total, don) => total + +don.amount,
+                              0
+                            ) + "TK"
+                          )}
                         </td>
                       </tr>
                     </tbody>

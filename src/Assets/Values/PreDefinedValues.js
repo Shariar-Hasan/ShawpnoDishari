@@ -50,10 +50,10 @@ export const userDetails = {
       collectedBy: "0000004",
     },
   ],
-  notifications : [],
+  notifications: [],
   userPrivacy: {
     phone: true,
-    birthDate: true,
+    birthDate: false,
     d_info: true,
   },
   accountInfo: {
@@ -512,9 +512,7 @@ export const fakeUserlist = [
     userPrivacy: {
       phone: false,
       birthDate: false,
-      i_info: false,
-      p_info: false,
-      d_info: false,
+      email: false,
     },
     accountInfo: {
       active: true,
@@ -524,117 +522,116 @@ export const fakeUserlist = [
   },
 ];
 
-
-
-export   const menudata = [
+export const menudata = [
   {
     name: "Dashboard",
-    onlyForAdmin : false,
+    onlyForAdmin: false,
     dashboardData: [
       {
         icon: "fa fa-user-circle",
         navName: "My Profile",
         path: "/dashboard",
-        private : false,
+        private: false,
       },
       {
         icon: "fa fa-user-circle",
         navName: "Statistics",
         path: "/dashboard/dashgdfssboard",
-        private : true,
+        private: true,
       },
     ],
   },
   {
     name: "Users Menu",
-    onlyForAdmin : false,
+    onlyForAdmin: false,
     dashboardData: [
       {
         icon: "fa fa-users",
         navName: "All User",
         path: "/dashboard/userlist",
-        private : false,
+        private: false,
       },
       {
         icon: "fa fa-search",
         navName: "Search Profile",
         path: "/dashboard/profile",
-        private : false,
+        private: false,
       },
       {
         icon: "fa fa-edit",
         navName: "Edit User",
         path: "/dashboard/fsdfs",
-        private : true,
+        private: true,
       },
       {
         icon: "fa fa-user-check",
         navName: "Verify User",
         path: "/dashboard/verify-user",
-        private : true,
+        private: true,
       },
     ],
   },
   {
     name: "Donation Menu",
-    onlyForAdmin : true,
+    onlyForAdmin: true,
     dashboardData: [
       {
         icon: "fas fa-hand-holding-usd ",
         navName: "Add Donation",
         path: "/dashboard/usesdfsdfrlist",
-        private : true,
+        private: true,
       },
       {
         icon: "fa fa-donate",
         navName: "Edit Donation",
         path: "/dashboard/fsdfsd",
-        private : true,
+        private: true,
       },
     ],
   },
   {
     name: "Notice Menu",
-    onlyForAdmin : false,
+    onlyForAdmin: false,
     dashboardData: [
       {
         icon: "fas fa-pen ",
         navName: "Add Notice",
         path: "/dashboard/add-notice",
-        private : true,
+        private: true,
       },
       {
-        icon: "fas fa-sticky-note ", 
+        icon: "fas fa-sticky-note ",
         navName: "Noticeboard",
-        path: "/dashboard/fsdfsd",
-        private : false,
+        path: "/dashboard/notice-board",
+        private: false,
       },
     ],
   },
   {
     name: "Gallery Menu",
-    onlyForAdmin : false,
+    onlyForAdmin: false,
     dashboardData: [
       {
         icon: "fas fa-camera",
         navName: "Add Screenshot/photos",
         path: "/dashboard/usesdfsdfrlist",
-        private : true,
+        private: true,
       },
       {
         icon: "fa fa-images",
         navName: "All Photos",
         path: "/dashboard/fsdfsd",
-        private : false,
+        private: false,
       },
     ],
   },
 ];
 
-
-
 /*
 npm run build
 firebase deploy
+git add .
+git commit -m "update-deploy"
+git push 
 
 */

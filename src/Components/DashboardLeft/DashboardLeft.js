@@ -1,14 +1,20 @@
-import React from "react";
-import { hrStyle, listStyle } from "../../Assets/Values/PreDefinedValues";
-
-import avater2 from "./../../Assets/Images/other/man.png";
-const DashboardLeft = ({ userdetails }) => {
+import React, { useContext } from "react";
+import { UserContext } from "../../App";
+import { hrStyle } from "../../Assets/Values/PreDefinedValues";
+import { useForm } from "react-hook-form";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
+const DashboardLeft = () => {
+  const [loginuser, setLoginuser] = useContext(UserContext);
+  const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
   const {
     sd_id,
     personalInfo: { avater, email },
     accountInfo: { verified },
     donationInfo,
-  } = userdetails;
+  } = loginuser;
+
   const lastDonationDate = donationInfo[0]?.date || "N/A";
   const lastDonated = donationInfo[0]?.amount || "0";
   const totalDonated =
@@ -21,8 +27,27 @@ const DashboardLeft = ({ userdetails }) => {
           <div className="h5 text-brand text-center">Profile Info</div>
 
           <div style={hrStyle}></div>
-          <div className="avater">
-            <img src={avater2} alt="avater" />
+          <div
+            className="avater cursor-pointer"
+            onClick={() =>
+              swal({
+                title: "Change Avater?",
+                text: "Do you want to change your avater?",
+                icon: "info",
+                buttons: true,
+              }).then((willChange) => {
+                if (willChange) {
+                  navigate("/settings/change-avater");
+                }
+              })
+            }
+          >
+            {!avater?.src && (
+              <span className="upload-icon">
+                <i className="fa fa-upload" aria-hidden="true"></i>
+              </span>
+            )}
+            <img src={avater?.src} alt="No avater Uploaded" />
           </div>
           <div className="info-data">
             <h6 className="">SD_ID : {sd_id}</h6>
@@ -32,13 +57,7 @@ const DashboardLeft = ({ userdetails }) => {
             {verified ? (
               <span className="text-success">User Verified</span>
             ) : (
-              <span className="text-danger">
-                User not Verified
-                <br />
-                <button className="btn btn-primary click-effect">
-                  Send verification mail
-                </button>
-              </span>
+              <span className="text-danger">User not Verified</span>
             )}
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   hrStyle,
   linkStyle,
@@ -6,16 +6,35 @@ import {
 } from "../../Assets/Values/PreDefinedValues";
 import "./../../Assets/Css/Sidenav.css";
 import defaultAvater from "./../../Assets/Images/logo/sd_logo_web.png";
+import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-const Sidenav = ({ loginuser }) => {
+import { toast } from "react-hot-toast";
+import { signOutUser } from "../../Assets/Funtions/FirebaseAuth.js";
+import {
+  clearLocalStorage,
+  setLocalStorage,
+} from "../../Assets/Funtions/functions";
+const Sidenav = () => {
   const [menuOpen, setMenuOpen] = useState("");
   const [menuItems, setMenuItems] = useState(menudata);
+
+  const [loginuser, setLoginuser] = useContext(UserContext);
   const history = useNavigate();
   const {
     sd_id,
     personalInfo: { email, name, avater },
+    accountInfo: { verified },
   } = loginuser;
+  const settingsError = !verified;
+  const handleSignOut = () => {
+    signOutUser();
+    setLoginuser({});
+    clearLocalStorage();
+    setLocalStorage("loginuser", { sd_id: "2eu9" });
+    history("/login");
+    toast.success(" Successfully Signed Out");
+  };
   return (
     <div className="sidenav-bg">
       <div
@@ -29,15 +48,15 @@ const Sidenav = ({ loginuser }) => {
         >
           Side Navigation
         </span>
-        {loginuser?.notifications?.length !== 0 && (
+        {/* {loginuser?.notifications?.length !== 0 && (
           <span className="notification-button">
-            <i class="far fa-bell text-primary" aria-hidden="true"></i>
+            <i className="far fa-bell text-primary" aria-hidden="true"></i>
           </span>
-        )}
+        )} */}
         <div className="sidenav-top">
           <img
             className="avater"
-            src={avater || defaultAvater}
+            src={avater?.src || defaultAvater}
             alt={"user avater"}
           />
           <span>{name || email}</span>
@@ -56,8 +75,8 @@ const Sidenav = ({ loginuser }) => {
               onClick={() => history("/settings", { replace: true })}
             >
               <i className="fa fa-gear"></i> Settings{" "}
-              <span class="badge badge-warning bg-danger text-white">
-                {loginuser?.accountInfo.verified || "1"}
+              <span className="badge badge-warning bg-danger text-white">
+                {settingsError && "!"}
               </span>
             </button>
             <button
@@ -65,7 +84,7 @@ const Sidenav = ({ loginuser }) => {
               title="Log Out "
               data-bs-toggle="tooltip"
               data-bs-placement="top"
-              onClick={() => history("/login", { replace: true })}
+              onClick={handleSignOut}
             >
               <i className="fas fa-right"></i> Logout
             </button>

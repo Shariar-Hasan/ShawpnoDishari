@@ -9,6 +9,7 @@ import { UserContext } from "./../../App";
 import SetPrivacy from "../../Components/SetPrivacy/SetPrivacy";
 import SettingsInstruction from "../../Components/SettingsInstruction/SettingsInstruction";
 import VerifyUser from "../../Components/VerifyUser/VerifyUser";
+import UploadProPic from "../../Components/UploadProPic/UploadProPic";
 
 const Settings = () => {
   const [loginuser, setLoginuser] = useContext(UserContext);
@@ -16,15 +17,16 @@ const Settings = () => {
     <div className="container">
       {Object.keys(loginuser).length && <Sidenav loginuser={loginuser} />}
       <div className="row my-3 ">
-        <div className="col-md-3 ">
+        <div className="col-md-3 my-3">
           <SettingsDashBoard />
         </div>
-        <div className="col-md-9 ">
+        <div className="col-md-9 my-3">
           <Routes>
             <Route path="/" element={<SettingsInstruction />} />
             <Route path="/change-pass" element={<ChangePass />} />
             <Route path="/set-privacy" element={<SetPrivacy />} />
             <Route path="/verify-user" element={<VerifyUser />} />
+            <Route path="/change-avater" element={<UploadProPic />} />
           </Routes>
         </div>
       </div>

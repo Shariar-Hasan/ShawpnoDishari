@@ -4,8 +4,6 @@ import "./../../Assets/Css/Home.css";
 import { Link } from "react-router-dom";
 import {
   linkStyle,
-  userDetails,
-  userDetails2,
 } from "../../Assets/Values/PreDefinedValues";
 import { UserContext } from "../../App";
 const Home = () => {

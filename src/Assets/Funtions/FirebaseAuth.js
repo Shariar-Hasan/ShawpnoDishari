@@ -1,9 +1,7 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+
 import {
-  GoogleAuthProvider,
   sendEmailVerification,
-  signInWithPopup,
   updatePassword,
 } from "firebase/auth";
 
@@ -13,21 +11,9 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
-const firebaseConfig = {
-  apiKey: "AIzaSyCdovY9uD1rby1vLqht5uFxiUzSRnMo5Us",
-  authDomain: "shawpnodishari.firebaseapp.com",
-  projectId: "shawpnodishari",
-  storageBucket: "shawpnodishari.appspot.com",
-  messagingSenderId: "376704117930",
-  appId: "1:376704117930:web:c0ece2694f18fc31e074d3",
-  measurementId: "G-HPS331VKNY",
-};
+import { app } from "./Firebase.config";
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// export const consol = () => {
-//   console.log(auth);
-// };
+
 
 export const signUpEmailPass = (email, pass) => {
   return new Promise((res, err) => {
@@ -53,7 +39,19 @@ export const signInEmailPass = (email, pass) => {
       });
   });
 };
-export const googleSignIn = (newPass) => {
+// export const loginViaUid = (uid) => {
+//   return new Promise((res, err) => {
+//     const auth = getAuth(app);
+//     signInWithEmailAndPassword(auth, uid)
+//       .then((userCredential) => {
+//         return res(userCredential.user);
+//       })
+//       .catch((error) => {
+//         return err(error);
+//       });
+//   });
+// };
+export const changePassword = (newPass) => {
   return new Promise((res, err) => {
     const auth = getAuth(app);
 
@@ -67,14 +65,12 @@ export const googleSignIn = (newPass) => {
       });
   });
 };
-export const changePassword = () => {
+export const verifyEmail = (sd_id) => {
   return new Promise((res, err) => {
-    const provider = new GoogleAuthProvider();
     const auth = getAuth(app);
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        return res(result.user);
-        // ...
+    sendEmailVerification(auth.currentUser)
+      .then(() => {
+        return res("Email sent! Check your email to verify your account.");
       })
       .catch((error) => {
         return err(error);
@@ -90,3 +86,33 @@ export const verifyUser = () => {
   const auth = getAuth(app);
   sendEmailVerification(auth.currentUser);
 };
+
+export const signOutUser = () => {
+  const auth = getAuth(app);
+  auth.signOut()
+};
+
+
+
+
+
+
+
+
+
+
+// var actionCodeSettings = {
+//   url: `http://localhost:3001/userVerified?email=${
+//     getAuth(app).currentUser.email
+//   }&sd_id=${sd_id}`,
+
+//   handleCodeInApp: true,
+// };
+// getAuth()
+//   .currentUser.sendEmailVerification(actionCodeSettings)
+//   .then(function () {
+//     return res("Email sent! Check your email to verify your account.");
+//   })
+//   .catch(function (error) {
+//     return err(error);
+//   });

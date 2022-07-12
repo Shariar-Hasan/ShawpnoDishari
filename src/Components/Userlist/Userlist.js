@@ -1,21 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getUserList } from "../../Assets/Funtions/FireStore";
+import { clg } from "../../Assets/Funtions/functions";
 import { fakeUserlist } from "../../Assets/Values/PreDefinedValues";
 import { linkStyle } from "../../Assets/Values/PreDefinedValues";
 import Actionmodal from "../Actionmodal/Actionmodal";
 import NothingAvailable from "../NothingAvailable/NothingAvailable";
 import Seachbar from "../Searchbar/Seachbar";
 import { UserContext } from "./../../App";
-
+import toast from "react-hot-toast";
 const Userlist = () => {
   const [loginuser, setLoginuser] = useContext(UserContext);
   const [userlist, setUserlist] = useState([]);
   const [actionProfile, setActionProfile] = useState(null);
   useEffect(() => {
-    setUserlist(fakeUserlist);
+    getUserList()
+      .then((snapshot) => {
+        setUserlist(snapshot);
+      })
+      .catch((error) => {
+        clg(error);
+        toast.error(error.message);
+      });
   }, []);
   const handleSearch = (option, string) => {
-    console.log(option, string);
     if (!string) setUserlist(undefined);
     else {
       if (option !== "sd_id") {
@@ -74,42 +82,46 @@ const Userlist = () => {
                     </td>
                     <td>{user.personalInfo?.email || "N/A"}</td>
                     <td>
-                      {
-                        true ? 
+                      {true ? (
                         <div className="btn-group dropup">
-                        <button
-                          type="button"
-                          className="btn dropdown-toggle"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          Options
-                        </button>
-                        <div className="dropdown-menu">
-                          <button className="btn  dropdown-item">
-                            Add as Admin
-                          </button>
                           <button
-                            className="btn  dropdown-item"
-                            onClick={() => handleViewProfile(user.sd_id)}
+                            type="button"
+                            className="btn dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
                           >
-                            View Profile
+                            Options
                           </button>
-                          <button className="btn  dropdown-item">
-                            Edit Profile
-                          </button>
-                          <button className="btn  dropdown-item">
-                            Send Notification
-                          </button>
-                          <button className="btn  dropdown-item">
-                            Add Donation
-                          </button>
+                          <div className="dropdown-menu">
+                            <button className="btn  dropdown-item">
+                              Add as Admin
+                            </button>
+                            <button
+                              className="btn  dropdown-item"
+                              onClick={() => handleViewProfile(user.sd_id)}
+                            >
+                              View Profile
+                            </button>
+                            <button className="btn  dropdown-item">
+                              Edit Profile
+                            </button>
+                            <button className="btn  dropdown-item">
+                              Send Notification
+                            </button>
+                            <button className="btn  dropdown-item">
+                              Add Donation
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      :
-                      <Link style={linkStyle} to={`/dashboard/profile/${user.sd_id}`}>View Profile</Link>
-                      }
+                      ) : (
+                        <Link
+                          style={linkStyle}
+                          to={`/dashboard/profile/${user.sd_id}`}
+                        >
+                          View Profile
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 ))
